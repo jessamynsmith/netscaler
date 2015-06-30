@@ -1,0 +1,34 @@
+<table id="devicetable" class="table table-condensed table-hover table-bordered">
+    <thead>
+    <tr class="text-left">
+        <th>Name</th>
+        <th>Address</th>
+        <th>
+            <a href="#modal-device" class="btn btn-default btn-sm" data-toggle="modal" >
+                <span class="glyphicon glyphicon-plus-sign"></span>
+            </a>
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if devices %}
+        {% for device in devices %}
+            <tr>
+            <td>{{ device.label }}</td>
+            <td>{{ device.ip }}</td>
+            </tr>
+        {% endfor %}
+        {% else %}
+            <tr>
+            <td><p>there is nothing in the database</p></td>
+            <td></td>
+            <td></td>
+            </tr>
+
+
+    {% endif %}
+    </tbody>
+    {% if error %}
+        <tr><td>{{ error }}</td></tr>
+    {% endif %}
+</table>

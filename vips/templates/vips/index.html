@@ -1,0 +1,34 @@
+{%  extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+<script>
+$(document).ready(function(){
+    $.get("{% url 'vips:devices' %}", function(data){
+        $("#content").html(data);
+    });
+    $.get("{% url 'vips:createdevice' %}", function(data){
+        $("#device-form").html(data);
+        console.log(data)
+    });
+});
+
+
+
+</script>
+{% endblock %}
+
+{% block modal %}
+<!-- Modal HTML -->
+    <div id="modal-device" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body" id="device-form">
+                <!-- placeholder for whatever-->
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+

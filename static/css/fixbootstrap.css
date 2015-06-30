@@ -1,0 +1,32 @@
+.padtop40 {
+	padding-top: 60px;
+}
+.rack {
+    border: 2px solid;
+    border-color: grey;
+    margin-left: 15px;
+    margin-bottom: 20px;
+}
+
+.table-supercondensed > thead > tr > th,
+.table-supercondensed > tbody > tr > th,
+.table-supercondensed > tfoot > tr > th,
+.table-supercondensed > thead > tr > td,
+.table-supercondensed > tbody > tr > td,
+.table-supercondensed > tfoot > tr > td {
+    padding: 1px;
+    font-size: 10px;
+    line-height: 10px;
+}
+
+.modal{
+    padding-top: 60px;
+    z-index: 20;
+}
+.modal-backdrop{
+    z-index: 10;
+}
+
+#id_address {
+    width: 300px;
+}
