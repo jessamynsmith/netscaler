@@ -30,5 +30,5 @@ class CreateDevice(CreateView):
 
 class DeleteDevice(DeleteView):
     model = Device
-    template_name = 'deleteform.html'
+    template_name = 'vips/deleteform.html'
     success_url = "/"

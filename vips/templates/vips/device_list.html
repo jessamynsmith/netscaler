@@ -19,9 +19,11 @@
             <td>
                 <script>
                     var url{{ device.id }} = "{% url 'vips:deletedevice' device.id %}";
+                    var tempmodal = $('#modal-delete');
+                    var temptable = $('#devicetable');
                 </script>
                 <button type="button" class="btn btn-default btn-sm"
-                   onclick='deletemodal("{{ device.id }}", $(#modal-device), "{% url 'vips:deletedevice' device.id %}", $(#devicetable));'>
+                   onclick='fillmodal("#device-delete", "{% url 'vips:deletedevice' device.id %}", "#modal-delete");'>
                     <span class="glyphicon glyphicon-remove"></span>
                 </button>
 

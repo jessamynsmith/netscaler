@@ -22,14 +22,9 @@ function create_post(form, mymodal, update) {
         });
 }
 
-function deletemodal(id, mymodal, url, update){
-    console.log(id);
-    console.log(mymodal);
-    console.log(url);
-    console.log(update);
+function fillmodal(select, url, mymodal){
     $.get(url, function(data){
-        id.html(data);
+        $(select).html(data);
     });
-    mymodal.modal('toggle');
-
+    $(mymodal).modal('show')
 }
