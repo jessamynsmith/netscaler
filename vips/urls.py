@@ -18,5 +18,10 @@ urlpatterns = patterns('',
                            regex=r'^device/create/$',
                            view=views.CreateDevice.as_view(),
                            name='createdevice'
-                       )
+                       ),
+                       url(
+                           regex=r'device/(?P<pk>\d+)>/delete',
+                           view=views.DeleteDevice.as_view(),
+                           name='deletedevice'
+                       ),
 )

@@ -18,6 +18,7 @@ $(document).ready(function(){
     $(".modal").on('hide.bs.modal', function(){
         console.log('Modal was hidden from the user');
     });
+
 });
 
 </script>
@@ -28,7 +29,6 @@ $(document).ready(function(){
 {% block modal %}
 <!-- Modal HTML -->
     <div id="modal-device" class="modal fade">
-
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-body" id="device-form">
@@ -39,6 +39,17 @@ $(document).ready(function(){
                 </div>
             </div>
         </div>
+
+    </div>
+    <div id="modal-delete" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body" id="device-delete">
+                    <!-- place holder -->
+                </div>
+            </div>
+        </div>
+
     </div>
 {% endblock %}
 

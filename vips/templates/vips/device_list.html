@@ -16,6 +16,16 @@
             <tr>
             <td>{{ device.label }}</td>
             <td>{{ device.ip }}</td>
+            <td>
+                <script>
+                    var url{{ device.id }} = "{% url 'vips:deletedevice' device.id %}";
+                </script>
+                <button type="button" class="btn btn-default btn-sm"
+                   onclick='deletemodal("{{ device.id }}", $(#modal-device), "{% url 'vips:deletedevice' device.id %}", $(#devicetable));'>
+                    <span class="glyphicon glyphicon-remove"></span>
+                </button>
+
+            </td>
             </tr>
         {% endfor %}
         {% else %}
@@ -24,8 +34,6 @@
             <td></td>
             <td></td>
             </tr>
-
-
     {% endif %}
     </tbody>
     {% if error %}

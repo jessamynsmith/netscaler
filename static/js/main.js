@@ -3,9 +3,6 @@
  */
 // AJAX for posting
 function create_post(form, mymodal, update) {
-
-    console.log("create post is working!"); // sanity check
-    console.log(form.serialize());
     $.ajax({
             url : form.attr('action'), // the endpoint
             type : "POST", // http method
@@ -23,4 +20,16 @@ function create_post(form, mymodal, update) {
                 console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
             }
         });
+}
+
+function deletemodal(id, mymodal, url, update){
+    console.log(id);
+    console.log(mymodal);
+    console.log(url);
+    console.log(update);
+    $.get(url, function(data){
+        id.html(data);
+    });
+    mymodal.modal('toggle');
+
 }

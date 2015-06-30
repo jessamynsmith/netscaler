@@ -1,5 +1,5 @@
 # Create your views here.
-from django.views.generic import TemplateView, ListView, CreateView
+from django.views.generic import TemplateView, ListView, CreateView, DeleteView
 from vips.forms import DeviceForm
 from vips.models import Device
 
@@ -25,4 +25,10 @@ class CreateDevice(CreateView):
     model = Device
     form_class = DeviceForm
     template_name = 'vips/device_form.html'
+    success_url = "/"
+
+
+class DeleteDevice(DeleteView):
+    model = Device
+    template_name = 'deleteform.html'
     success_url = "/"
