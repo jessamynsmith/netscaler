@@ -2,7 +2,23 @@
 {% load staticfiles %}
 {% block content %}
 <script>
+$(document).ready(function(){
+    var temp = $('.modal').on('show.bs.modal', function(){
+            console.log('modal is shown');
+            console.log(this.id);
+            //for some reason this return an array???
+            return $(this)[0]
+    });
+    // Submit post on submit
+    $('.form-inline').on('submit', function(event) {
+        event.preventDefault();
+        create_post($(this), temp, $('#content'));
+    });
 
+    $(".modal").on('hide.bs.modal', function(){
+        console.log('Modal was hidden from the user');
+    });
+});
 
 </script>
 {%  include 'vips/device_list.html'%}
@@ -12,11 +28,13 @@
 {% block modal %}
 <!-- Modal HTML -->
     <div id="modal-device" class="modal fade">
+
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-body" id="device-form">
+
                 {% if deviceform %}
-                    {{ deviceform }}
+                    {% include 'vips/device_form.html' %}
                 {% endif %}
                 </div>
             </div>

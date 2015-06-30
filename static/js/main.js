@@ -2,7 +2,7 @@
  * Created by jeffrey.dambly on 6/29/15.
  */
 // AJAX for posting
-function create_post(form, mymodal) {
+function create_post(form, mymodal, update) {
 
     console.log("create post is working!"); // sanity check
     console.log(form.serialize());
@@ -14,8 +14,7 @@ function create_post(form, mymodal) {
             success : function(json) {
                 form.val(''); // remove the value from the input
                 mymodal.modal('hide');
-                console.log(json); // log the returned json to the console
-                console.log("success"); // another sanity check
+                update.html(json);
             },
             // handle a non-successful response
             error : function(xhr,errmsg,err) {
@@ -25,20 +24,3 @@ function create_post(form, mymodal) {
             }
         });
 }
-
-var temp = $('.modal').on('show.bs.modal', function(){
-        console.log('modal is shown');
-        console.log(this.id);
-        return $(this)
-    });
-// Submit post on submit
-$('.form-inline').on('submit', function(event) {
-    event.preventDefault();
-    console.log("form submitted!");  // sanity check
-
-    create_post($(this), temp);
-});
-
-$(".modal").on('hide.bs.modal', function(){
-    console.log('Modal was hidden from the user');
-});

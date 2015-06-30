@@ -25,5 +25,4 @@ class CreateDevice(CreateView):
     model = Device
     form_class = DeviceForm
     template_name = 'vips/device_form.html'
-    fields = ['label', 'ip', 'login']
     success_url = "/"
