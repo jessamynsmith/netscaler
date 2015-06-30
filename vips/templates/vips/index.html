@@ -2,20 +2,12 @@
 {% load staticfiles %}
 {% block content %}
 <script>
-$(document).ready(function(){
-    $.get("{% url 'vips:devices' %}", function(data){
-        $("#content").html(data);
-    });
-    $.get("{% url 'vips:createdevice' %}", function(data){
-        $("#device-form").html(data);
-        console.log(data)
-    });
-});
-
 
 
 </script>
+{%  include 'vips/device_list.html'%}
 {% endblock %}
+
 
 {% block modal %}
 <!-- Modal HTML -->
@@ -23,7 +15,9 @@ $(document).ready(function(){
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-body" id="device-form">
-                <!-- placeholder for whatever-->
+                {% if deviceform %}
+                    {{ deviceform }}
+                {% endif %}
                 </div>
             </div>
         </div>
