@@ -1,0 +1,57 @@
+{%  extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+<script>
+$(document).ready(function(){
+    // Submit post on submit
+    $('.form-inline').on('submit', function(event) {
+        var temp = $('.modal').on('show.bs.modal', function(){
+            console.log('modal is shown');
+            console.log(this.id);
+            //for some reason this return an array???
+            return $(this)[0]
+        });
+        event.preventDefault();
+        create_post($(this), temp, $('#content'));
+    });
+
+    $(".modal").on('hide.bs.modal', function(){
+        console.log('Modal was hidden from the user');
+    });
+
+});
+
+</script>
+{%  include 'vips/device_list.html'%}
+{% endblock %}
+
+
+{% block modal %}
+<!-- Modal HTML -->
+    <div id="modal-device" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body" id="device-form">
+
+                {% if deviceform %}
+                    {% include 'vips/device_form.html' %}
+                {% endif %}
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div id="modal-delete" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body" id="device-delete">
+                    <!-- place holder -->
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
+
+
+

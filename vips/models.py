@@ -47,7 +47,7 @@ class Vip(models.Model):
     name = models.CharField(max_length=64)
     state = models.CharField(max_length=16)
     address = models.GenericIPAddressField()
-    device = models.ForeignKey(Device)
+    device = models.ForeignKey(Device, related_name='vips')
     updated = models.DateTimeField(auto_now=True)
 
     objects = VipManager()

@@ -1,11 +1,16 @@
 # Create your views here.
 from django.views.generic import TemplateView, ListView, CreateView, DeleteView
 from vips.forms import DeviceForm
-from vips.models import Device
+from vips.models import Device, Vip
 
+
+class IndexView(ListView):
+    template_name = 'vips/index.html'
+    model = Device
+    context_object_name = 'devices'
 
 class AdminView(ListView):
-    template_name = 'vips/index.html'
+    template_name = 'vips/deviceadmin.html'
     model = Device
     context_object_name = 'devices'
 
