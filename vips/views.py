@@ -4,13 +4,13 @@ from vips.forms import DeviceForm
 from vips.models import Device
 
 
-class IndexView(ListView):
+class AdminView(ListView):
     template_name = 'vips/index.html'
     model = Device
     context_object_name = 'devices'
 
     def get_context_data(self, **kwargs):
-        context = super(IndexView, self).get_context_data(**kwargs)
+        context = super(AdminView, self).get_context_data(**kwargs)
         context['deviceform'] = DeviceForm()
         return context
 

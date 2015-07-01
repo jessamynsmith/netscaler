@@ -24,4 +24,9 @@ urlpatterns = patterns('',
                            view=views.DeleteDevice.as_view(),
                            name='deletedevice'
                        ),
+                       url(
+                           regex=r'device/admin/$',
+                           view=views.AdminView.as_view(),
+                           name='deviceadmin'
+                       ),
 )
