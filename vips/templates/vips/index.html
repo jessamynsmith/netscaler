@@ -4,11 +4,59 @@
 <script>
 
 </script>
+{% if devices %}
+<div class="tabbable tabs-left"> <!-- Only required for left/right tabs -->
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#tab1" data-toggle="tab">Section 1</a></li>
+    <li><a href="#tab2" data-toggle="tab">Section 2</a></li>
+    {% for device in devices %}
+      <li id="device{{ device.id }}"><a href="#tab{{ device.id }}" data-toggle="tab">{{ device.label }}</a></li>
+      {% endfor %}
+  </ul>
+
+<div class="tab-content">
+    <div class="tab-pane active" id="tab1">
+        <p>I'm in Section 1.</p>
+    </div>
+    {% for device in devices %}
+        <div class="tab-pane" id="tab{{ device.id }}">
+        <div class="row">
+        <div class="col-lg-6">
+            <table class="table table-bordered">
+                <thead>
+                <tr class="text-left">
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>State</th>
+                    <th>Last Updated</th>
+                </tr>
+
+                </thead>
+                <tbody>
+                {% for vip in device.vips.all %}
+                    <tr>
+                    <td>{{ vip.name }}</td>
+                    <td>{{ vip.address }}</td>
+                        {% if vip.state == "ENABLED" %}
+                            <td><span class='label label-success'>{{ vip.state }}</span></td>
+                        {% else %}
+                            <td><span class="label label-default">{{ vip.state }}</span></td>
+                        {% endif %}
+                    <td>{{ vip.updated }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        </div>
+        </div>
+</div>
+    {% endfor %}
+</div>
+{% else %}
+    <div>
+    <p>there is nothing in the database</p>
+    </div>
+{% endif %}
 
 {% endblock %}
-
-
-
-
-
-
