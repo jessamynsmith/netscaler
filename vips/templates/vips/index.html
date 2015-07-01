@@ -31,7 +31,7 @@
 
                 </thead>
                 <tbody>
-                {% for vip in device.vips.all %}
+                {% for vip in device.servers.all %}
                     <tr>
                     <td>{{ vip.name }}</td>
                     <td>{{ vip.address }}</td>

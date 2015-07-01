@@ -51,7 +51,7 @@ class Netscaler(object):
         self.session = session
         return True
 
-    def get_vips(self):
+    def get_servers(self):
         """
         returns the output form 'show server' this is a list of vips
         :return:

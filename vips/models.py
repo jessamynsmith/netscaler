@@ -20,9 +20,9 @@ class Device(models.Model):
     def __unicode__(self):
         return '%s' % self.label
 
-class VipManager(models.Manager):
+class ServerManager(models.Manager):
 
-    def poll(self, device=Device):
+    def server_poll(self, device=Device):
         """
         takes a query object of type Device, connects to that host, and then gets
         all the vip info
@@ -36,21 +36,21 @@ class VipManager(models.Manager):
                            username=device.login.user,
                            password=device.login.password)
 
-        for vipkey, vipval in remote.get_vips().iteritems():
-            Vip.objects.update_or_create(name=vipval['Name'],
-                                         address=vipval['IPAddress'],
-                                         state=vipval['State'],
+        for key, val in remote.get_servers().iteritems():
+            Server.objects.update_or_create(name=val['Name'],
+                                         address=val['IPAddress'],
+                                         state=val['State'],
                                          device=device)
 
 
-class Vip(models.Model):
+class Server(models.Model):
     name = models.CharField(max_length=64)
     state = models.CharField(max_length=16)
     address = models.GenericIPAddressField()
-    device = models.ForeignKey(Device, related_name='vips')
+    device = models.ForeignKey(Device, related_name='servers')
     updated = models.DateTimeField(auto_now=True)
 
-    objects = VipManager()
+    objects = ServerManager()
 
     def __unicode__(self):
         return '%s' % self.name

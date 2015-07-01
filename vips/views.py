@@ -1,7 +1,7 @@
 # Create your views here.
-from django.views.generic import TemplateView, ListView, CreateView, DeleteView
+from django.views.generic import ListView, CreateView, DeleteView
 from vips.forms import DeviceForm
-from vips.models import Device, Vip
+from vips.models import Device
 
 
 class IndexView(ListView):
