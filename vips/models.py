@@ -55,7 +55,27 @@ class Server(models.Model):
     def __unicode__(self):
         return '%s' % self.name
 
-class Vip(models.Manager):
+
+class VipManager(models.Manager):
+
+    def vips_poll(self, device=Device):
+        """
+        connects to the netscaler gets all the vip data and enters it into the db
+        :return:
+        """
+        remote = Netscaler(host=device.ip,
+                           username=device.login.user,
+                           password=device.login.password)
+
+        for key, val in remote.get_vips().iteritems():
+            Vip.objects.update_or_create(label=val['label'],
+                                         address=val['address'],
+                                         port=val['port'],
+                                         state=val['state'],
+                                         effective_state=val['effective state'],
+                                         device=device)
+
+class Vip(models.Model):
     label = models.CharField(max_length=32)
     address = models.GenericIPAddressField()
     port = models.IntegerField()
@@ -63,6 +83,8 @@ class Vip(models.Manager):
     effective_state = models.CharField(max_length=16)
     device = models.ForeignKey(Device, related_name='vips')
     updated = models.DateTimeField(auto_now=True)
+
+    objects = VipManager()
 
     def __unicode__(self):
         return '%s' % self.label

@@ -19,28 +19,37 @@
     {% for device in devices %}
         <div class="tab-pane" id="tab{{ device.id }}">
         <div class="row">
-        <div class="col-lg-6">
-            <table class="table table-bordered">
+        <div class="col-lg-5">
+            <table class="table table-bordered table-condensed">
                 <thead>
-                <tr class="text-left">
+                <tr>
+                    <th colspan="5" class="text-center">Total Vips: {{ device.vips.count }}</th>
+                </tr>
+                <tr>
                     <th>Name</th>
                     <th>Address</th>
+                    <th>Port</th>
                     <th>State</th>
-                    <th>Last Updated</th>
+                    <th>Effective State</th>
                 </tr>
 
                 </thead>
                 <tbody>
-                {% for vip in device.servers.all %}
+                {% for vip in device.vips.all %}
                     <tr>
-                    <td>{{ vip.name }}</td>
+                    <td>{{ vip.label }}</td>
                     <td>{{ vip.address }}</td>
-                        {% if vip.state == "ENABLED" %}
+                    <td>{{ vip.port }}</td>
+                        {% if vip.state == "UP" %}
                             <td><span class='label label-success'>{{ vip.state }}</span></td>
                         {% else %}
                             <td><span class="label label-default">{{ vip.state }}</span></td>
                         {% endif %}
-                    <td>{{ vip.updated }}</td>
+                    {% if vip.effective_state == "UP"%}
+                        <td><span class="label label-success">{{ vip.effective_state }}</span></td>
+                    {% else %}
+                        <td><span class="label label-default">{{ vip.effective_state }}</span></td>
+                    {% endif %}
                     </tr>
                 {% endfor %}
                 </tbody>

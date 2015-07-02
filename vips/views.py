@@ -9,6 +9,7 @@ class IndexView(ListView):
     model = Device
     context_object_name = 'devices'
 
+
 class AdminView(ListView):
     template_name = 'vips/deviceadmin.html'
     model = Device
