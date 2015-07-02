@@ -3,6 +3,12 @@ from pexpect import spawn, TIMEOUT
 
 SSH_NEWKEY = 'Are you sure you want to continue connecting'
 
+class MissingKey(Exception):
+
+    def __init__(self, key):
+        self.key = key
+        Exception.__init__(self, "Key: %s is missing" % self.key )
+
 class Netscaler(object):
     """
     wrapper class for interacting with expect and the netscaler
@@ -105,7 +111,7 @@ class Netscaler(object):
 
         return result
 
-    def get_members(self, vip):
+    def get_members(self, vip, debug=False):
         """
         given the vip, connects to the Netscaler and does
         show lb vserver <vip>
@@ -115,17 +121,31 @@ class Netscaler(object):
         """
         keys = ['label', 'address', 'port', 'protocol', 'state']
         data = self._send('show lb vserver '+vip)
+        if debug == True:
+            print data
         data = re.split(r'\r\n\d+\)\s', data)[1:]
-        print data
+
         result = {}
 
         for id, member in enumerate(data):
+            if debug == True:
+                print member
             matchObj = re.match(r'^(\S+)\s\((\d+.\d+.\d+.\d+):\s(\d+)\)\s-\s(\w+)\sState:\s(\w+)', member)
 
             if matchObj:
                 temp = {}
                 for indx, val in enumerate(keys):
                     temp.update({val: matchObj.group(indx+1)})
-                result[id] = temp
+
+                # check to make sure all the keys are at least there
+                count = 0
+                for key in keys:
+                    if key not in temp:
+                        count += 1
+
+                if count != len(keys):
+                    result[id] = 'empty'
+                else:
+                    result[id] = temp
 
         return result

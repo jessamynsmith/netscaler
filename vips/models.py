@@ -117,7 +117,7 @@ class Vip(models.Model):
 
 class MemberManager(models.Manager):
 
-    def get_members(self, device=Device, vip=Vip):
+    def members_poll(self, device=Device, vip=Vip):
         """
 
         :param device:
@@ -128,11 +128,12 @@ class MemberManager(models.Manager):
                            password=device.login.password)
 
         for key, val in remote.get_members(vip.label).iteritems():
-            Member.objects.update_or_create(label=val['label'],
-                                            address=val['address'],
-                                            port=val['port'],
-                                            protocol=val['protocol'],
-                                            state=val['state'])
+            if val != 'empty':
+                Member.objects.update_or_create(label=val['label'],
+                                                address=val['address'],
+                                                port=val['port'],
+                                                protocol=val['protocol'],
+                                                state=val['state'])
 
 
 class Member(models.Model):
