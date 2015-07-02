@@ -104,3 +104,28 @@ class Netscaler(object):
                 result[id] = temp
 
         return result
+
+    def get_members(self, vip):
+        """
+        given the vip, connects to the Netscaler and does
+        show lb vserver <vip>
+        parses the data into a di
+        :param vip: string
+        :return:
+        """
+        keys = ['label', 'address', 'port', 'protocol', 'state']
+        data = self._send('show lb vserver '+vip)
+        data = re.split(r'\r\n\d+\)\s', data)[1:]
+        print data
+        result = {}
+
+        for id, member in enumerate(data):
+            matchObj = re.match(r'^(\S+)\s\((\d+.\d+.\d+.\d+):\s(\d+)\)\s-\s(\w+)\sState:\s(\w+)', member)
+
+            if matchObj:
+                temp = {}
+                for indx, val in enumerate(keys):
+                    temp.update({val: matchObj.group(indx+1)})
+                result[id] = temp
+
+        return result

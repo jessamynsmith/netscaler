@@ -115,12 +115,36 @@ class Vip(models.Model):
         return '%s' % self.label
 
 
-class Members(models.Model):
+class MemberManager(models.Manager):
+
+    def get_members(self, device=Device, vip=Vip):
+        """
+
+        :param device:
+        :return:
+        """
+        remote = Netscaler(host=device.ip,
+                           username=device.login.user,
+                           password=device.login.password)
+
+        for key, val in remote.get_members(vip.label).iteritems():
+            Member.objects.update_or_create(label=val['label'],
+                                            address=val['address'],
+                                            port=val['port'],
+                                            protocol=val['protocol'],
+                                            state=val['state'])
+
+
+class Member(models.Model):
     label = models.CharField(max_length=32)
     address = models.GenericIPAddressField()
     port = models.IntegerField()
     protocol = models.CharField(max_length=16)
+    state = models.CharField(max_length=16)
     vip = models.ForeignKey(Vip, related_name='members')
+    update = models.DateTimeField(auto_now=True)
+
+    objects = MemberManager()
 
     def __unicode__(self):
         return '%s' % self.label
