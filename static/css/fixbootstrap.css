@@ -30,3 +30,7 @@
 #id_address {
     width: 300px;
 }
+
+.fixed{
+    position: fixed
+}

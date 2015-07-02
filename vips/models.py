@@ -113,3 +113,14 @@ class Vip(models.Model):
 
     def __unicode__(self):
         return '%s' % self.label
+
+
+class Members(models.Model):
+    label = models.CharField(max_length=32)
+    address = models.GenericIPAddressField()
+    port = models.IntegerField()
+    protocol = models.CharField(max_length=16)
+    vip = models.ForeignKey(Vip, related_name='members')
+
+    def __unicode__(self):
+        return '%s' % self.label
