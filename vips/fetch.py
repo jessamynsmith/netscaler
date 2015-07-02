@@ -53,7 +53,7 @@ class Netscaler(object):
 
     def get_servers(self):
         """
-        returns the output form 'show server' this is a list of vips
+        returns the output form 'show server' this is a list of servers
         :return:
         """
 
@@ -78,5 +78,29 @@ class Netscaler(object):
             if temp != {}:
                 result[id] = temp
                 id += 1
+
+        return result
+
+    def get_vips(self):
+        """
+        returns the output from 'show lb vserver' as a dict
+        :return:
+        """
+        keys = ['label', 'address', 'port', 'state', 'effective state']
+        data = self._send('show lb vserver')
+        data = re.split(r'\r\n\d+\)', data)[1:]
+        result = {}
+
+        for id, vip in enumerate(data):
+            matchObj = re.match(r'^\t(\S+)\s\((\d+.\d+.\d+.\d+):(\d+)\)\s-\s\w+\t\w+:\s\w+\s\r\n\tState:\s(\w+)\r\n\tEffective\sState:\s(\w+)', vip)
+
+            if matchObj:
+                temp = {}
+                for indx, val in enumerate(keys):
+                    # have to add +1 because re groups start at 1 0 would be the whole match
+                    #print val, matchObj.group(indx+1)
+                    temp.update({val: matchObj.group(indx+1)})
+
+                result[id] = temp
 
         return result

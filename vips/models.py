@@ -54,3 +54,15 @@ class Server(models.Model):
 
     def __unicode__(self):
         return '%s' % self.name
+
+class Vip(models.Manager):
+    label = models.CharField(max_length=32)
+    address = models.GenericIPAddressField()
+    port = models.IntegerField()
+    state = models.CharField(max_length=16)
+    effective_state = models.CharField(max_length=16)
+    device = models.ForeignKey(Device, related_name='vips')
+    updated = models.DateTimeField(auto_now=True)
+
+    def __unicode__(self):
+        return '%s' % self.label
