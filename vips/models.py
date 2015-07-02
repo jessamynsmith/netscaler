@@ -1,6 +1,7 @@
 from django.db import models
 
 # Create your models here.
+from django.db.models import Count
 from vips.fetch import Netscaler
 
 
@@ -74,6 +75,30 @@ class VipManager(models.Manager):
                                          state=val['state'],
                                          effective_state=val['effective state'],
                                          device=device)
+
+    def graph(self):
+        colors =["#f30000",
+                 "#0600f3",
+                 "#00b109",
+                 "#14e4b4",
+                 "#0fe7fb",
+                 "#67f200",
+                 "#ff7e00",
+                 "#8fe4fa",
+                 "#ff5300",
+                 "#640000",
+                 "#3854d1",
+         ]
+        result = Vip.objects.values('state').annotate(value=Count('state'))
+
+        i = 1
+        for each in result:
+            each.update({'color': colors[i]})
+            i += 1
+            if i > len(colors):
+                i = 1
+
+        return result
 
 class Vip(models.Model):
     label = models.CharField(max_length=32)

@@ -1,13 +1,18 @@
 # Create your views here.
 from django.views.generic import ListView, CreateView, DeleteView
 from vips.forms import DeviceForm
-from vips.models import Device
+from vips.models import Device, Vip
 
 
 class IndexView(ListView):
     template_name = 'vips/index.html'
     model = Device
     context_object_name = 'devices'
+
+    def get_context_data(self, **kwargs):
+        context = super(IndexView, self).get_context_data(**kwargs)
+        context['stategraph'] = Vip.objects.graph()
+        return  context
 
 
 class AdminView(ListView):
