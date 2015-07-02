@@ -27,7 +27,7 @@ def main():
         Vip.objects.vips_poll(device)
         for vip in device.vips.all():
             print "Fetching members from Device: %s Vip: %s" % (device, vip)
-            Member.objects.members_poll(device, vip)
+            Member.objects.members_poll(vip, debug=True)
 
 if __name__ == "__main__":
     main()

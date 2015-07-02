@@ -29,4 +29,9 @@ urlpatterns = patterns('',
                            view=views.AdminView.as_view(),
                            name='deviceadmin'
                        ),
+                       url(
+                           regex=r'vip/(?P<pk>\d+)/members',
+                           view=views.MemberView.as_view(),
+                           name='members'
+                       ),
 )

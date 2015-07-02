@@ -140,8 +140,11 @@ class Netscaler(object):
                 # check to make sure all the keys are at least there
                 count = 0
                 for key in keys:
-                    if key not in temp:
+                    if key in temp:
                         count += 1
+
+                if debug == True:
+                    print "Count is: %s" % count
 
                 if count != len(keys):
                     result[id] = 'empty'

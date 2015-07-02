@@ -1,7 +1,8 @@
 # Create your views here.
+from django.shortcuts import get_object_or_404
 from django.views.generic import ListView, CreateView, DeleteView
 from vips.forms import DeviceForm
-from vips.models import Device, Vip
+from vips.models import Device, Vip, Member
 
 
 class IndexView(ListView):
@@ -43,3 +44,12 @@ class DeleteDevice(DeleteView):
     model = Device
     template_name = 'vips/deleteform.html'
     success_url = "/"
+
+
+class MemberView(ListView):
+    template_name = 'vips/memberlist.html'
+    model = Member
+    context_object_name = 'members'
+
+    def get_queryset(self):
+        return self.model.objects.filter(vip__id=self.kwargs['pk'])

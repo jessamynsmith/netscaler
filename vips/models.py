@@ -106,7 +106,7 @@ class Vip(models.Model):
     port = models.IntegerField()
     state = models.CharField(max_length=16)
     effective_state = models.CharField(max_length=16)
-    device = models.ForeignKey(Device, related_name='vips')
+    device = models.ForeignKey(Device, related_name='vips', default=None, null=True)
     updated = models.DateTimeField(auto_now=True)
 
     objects = VipManager()
@@ -117,23 +117,26 @@ class Vip(models.Model):
 
 class MemberManager(models.Manager):
 
-    def members_poll(self, device=Device, vip=Vip):
+    def members_poll(self, vip=Vip, debug=False):
         """
 
         :param device:
         :return:
         """
-        remote = Netscaler(host=device.ip,
-                           username=device.login.user,
-                           password=device.login.password)
+        remote = Netscaler(host=vip.device.ip,
+                           username=vip.device.login.user,
+                           password=vip.device.login.password)
 
         for key, val in remote.get_members(vip.label).iteritems():
+            if debug == True:
+                print key, val
             if val != 'empty':
                 Member.objects.update_or_create(label=val['label'],
                                                 address=val['address'],
                                                 port=val['port'],
                                                 protocol=val['protocol'],
-                                                state=val['state'])
+                                                state=val['state'],
+                                                vip=vip)
 
 
 class Member(models.Model):
