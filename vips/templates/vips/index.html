@@ -6,14 +6,14 @@
 <script src="{% static 'js/d3pie.min.js' %}"></script>
 
 {% if devices %}
-<div class="row">
+< class="row">
 <div class="tabbable"> <!-- Only required for left/right tabs -->
-  <ul class="nav nav-tabs">
-    <li class="active"><a href="#tab1" data-toggle="tab">Summary</a></li>
-    {% for device in devices %}
-      <li id="device{{ device.id }}"><a href="#tab{{ device.id }}" data-toggle="tab">{{ device.label }}</a></li>
-      {% endfor %}
-  </ul>
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#tab1" data-toggle="tab">Summary</a></li>
+        {% for device in devices %}
+            <li id="device{{ device.id }}"><a href="#tab{{ device.id }}" data-toggle="tab">{{ device.label }}</a></li>
+        {% endfor %}
+    </ul>
     <div class="tab-content">
         <div class="tab-pane active" id="tab1">
             <div id='pieChart'></div>
@@ -95,52 +95,51 @@
                 });
             </script>
         </div>
-    </div>
-    <div class="row">
-    {% for device in devices %}
-        <div class="tab-pane" id="tab{{ device.id }}">
 
-        <div class="col-lg-5">
-            <table class="table table-bordered table-condensed">
-                <thead>
-                <tr>
-                    <th colspan="5" class="text-center">Total Vips: {{ device.vips.count }}</th>
-                </tr>
-                <tr>
-                    <th>Name</th>
-                    <th>Address</th>
-                    <th>Port</th>
-                    <th>State</th>
-                    <th>Effective State</th>
-                </tr>
-
-                </thead>
-                <tbody>
-                {% for vip in device.vips.all %}
-                    <tr>
-                    <td><a style="cursor: pointer;" onclick="getPajax('{% url "vips:members" vip.id %}', '#memberdiv');"> {{ vip.label }}</a></td>
-                    <td>{{ vip.address }}</td>
-                    <td>{{ vip.port }}</td>
-                        {% if vip.state == "UP" %}
-                            <td><span class='label label-success'>{{ vip.state }}</span></td>
-                        {% else %}
-                            <td><span class="label label-default">{{ vip.state }}</span></td>
-                        {% endif %}
-                    {% if vip.effective_state == "UP"%}
-                        <td><span class="label label-success">{{ vip.effective_state }}</span></td>
-                    {% else %}
-                        <td><span class="label label-default">{{ vip.effective_state }}</span></td>
-                    {% endif %}
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        </div>
-        <div id='memberdiv' class="col-lg-5 col-lg-offset-5 fixed">
-            <!-- place holder for table -->
-        </div>
-        </div>
-    {% endfor %}
+        {% for device in devices %}
+            <div class="tab-pane" id="tab{{ device.id }}">
+                <div class="row">
+                    <div class="col-lg-5">
+                        <table class="table table-bordered table-condensed">
+                            <thead>
+                            <tr>
+                                <th colspan="5" class="text-center">Total Vips: {{ device.vips.count }}</th>
+                            </tr>
+                            <tr>
+                                <th>Name</th>
+                                <th>Address</th>
+                                <th>Port</th>
+                                <th>State</th>
+                                <th>Effective State</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for vip in device.vips.all %}
+                                <tr>
+                                    <td><a style="cursor: pointer;" onclick="getPajax('{% url "vips:members" vip.id %}', '#memberdiv');"> {{ vip.label }}</a></td>
+                                    <td>{{ vip.address }}</td>
+                                    <td>{{ vip.port }}</td>
+                                    {% if vip.state == "UP" %}
+                                        <td><span class='label label-success'>{{ vip.state }}</span></td>
+                                    {% else %}
+                                        <td><span class="label label-default">{{ vip.state }}</span></td>
+                                    {% endif %}
+                                    {% if vip.effective_state == "UP"%}
+                                        <td><span class="label label-success">{{ vip.effective_state }}</span></td>
+                                    {% else %}
+                                        <td><span class="label label-default">{{ vip.effective_state }}</span></td>
+                                    {% endif %}
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id='memberdiv' class="col-lg-5 col-lg-offset-5 fixed">
+                        <!-- place holder for table -->
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
     </div>
 </div>
 {% else %}
@@ -150,4 +149,3 @@
 {% endif %}
 
 {% endblock %}
-</div>
