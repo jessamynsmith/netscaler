@@ -9,7 +9,7 @@
             console.log('modal is shown');
             console.log(this.id);
             //for some reason this return an array???
-            return $(this)[0]
+            return $(this)[0];
         });
         event.preventDefault();
         create_post($(this), temp, $('#content'));
