@@ -26,7 +26,7 @@ function fillmodal(select, url, mymodal){
     $.get(url, function(data){
         $(select).html(data);
     });
-    $(mymodal).modal('show')
+    $(mymodal).modal('show');
 }
 
 function getPajax(url, updateTable){
