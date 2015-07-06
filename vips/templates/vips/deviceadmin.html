@@ -17,6 +17,7 @@ $(document).ready(function(){
         console.log('Clicked on Submit');
 
         create_post($(this), temp, $('#content'));
+        return false;
     });
 
     $(".modal").on('hide.bs.modal', function(){
