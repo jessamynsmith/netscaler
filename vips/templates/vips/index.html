@@ -13,90 +13,91 @@
       <li id="device{{ device.id }}"><a href="#tab{{ device.id }}" data-toggle="tab">{{ device.label }}</a></li>
       {% endfor %}
   </ul>
-<div class="tab-content">
-    <div class="tab-pane active" id="tab1">
-        <div id='pieChart'></div>
-        <script>
-            var pie = new d3pie("pieChart", {
-                "header": {
-                    "title": {
-                        "text": "Vips",
-                        "fontSize": 24,
-                        "font": "open sans"
-                    },
-                    "subtitle": {
-                        "color": "#999999",
-                        "fontSize": 12,
-                        "font": "open sans"
-                    },
-                    "titleSubtitlePadding": 9
-                },
-                "footer": {
-                    "color": "#999999",
-                    "fontSize": 10,
-                    "font": "open sans",
-                    "location": "bottom-left"
-                },
-                "size": {
-                    "canvasWidth": 590,
-                    "pieOuterRadius": "100%"
-                },
-                "data": {
-                    "sortOrder": "value-desc",
-                    "content": [
-                        {% for item in stategraph %}
-                        {
-                            "label": "{{ item.state }}",
-                            "value": {{ item.value }},
-                            "color": "{{ item.color }}"
+    <div class="tab-content">
+        <div class="tab-pane active" id="tab1">
+            <div id='pieChart'></div>
+            <script>
+                var pie = new d3pie("pieChart", {
+                    "header": {
+                        "title": {
+                            "text": "Vips",
+                            "fontSize": 24,
+                            "font": "open sans"
                         },
-                        {% endfor %}
+                        "subtitle": {
+                            "color": "#999999",
+                            "fontSize": 12,
+                            "font": "open sans"
+                        },
+                        "titleSubtitlePadding": 9
+                    },
+                    "footer": {
+                        "color": "#999999",
+                        "fontSize": 10,
+                        "font": "open sans",
+                        "location": "bottom-left"
+                    },
+                    "size": {
+                        "canvasWidth": 590,
+                        "pieOuterRadius": "100%"
+                    },
+                    "data": {
+                        "sortOrder": "value-desc",
+                        "content": [
+                            {% for item in stategraph %}
+                            {
+                                "label": "{{ item.state }}",
+                                "value": {{ item.value }},
+                                "color": "{{ item.color }}"
+                            },
+                            {% endfor %}
 
-                    ]
-                },
-                "labels": {
-                    "outer": {
-                        "pieDistance": 32
+                        ]
                     },
-                    "inner": {
-                        "hideWhenLessThanPercentage": 3
+                    "labels": {
+                        "outer": {
+                            "pieDistance": 32
+                        },
+                        "inner": {
+                            "hideWhenLessThanPercentage": 3
+                        },
+                        "mainLabel": {
+                            "fontSize": 11
+                        },
+                        "percentage": {
+                            "color": "#ffffff",
+                            "decimalPlaces": 0
+                        },
+                        "value": {
+                            "color": "#adadad",
+                            "fontSize": 11
+                        },
+                        "lines": {
+                            "enabled": true
+                        },
+                        "truncation": {
+                            "enabled": true
+                        }
                     },
-                    "mainLabel": {
-                        "fontSize": 11
+                    "effects": {
+                        "pullOutSegmentOnClick": {
+                            "speed": 400,
+                            "size": 8
+                        }
                     },
-                    "percentage": {
-                        "color": "#ffffff",
-                        "decimalPlaces": 0
-                    },
-                    "value": {
-                        "color": "#adadad",
-                        "fontSize": 11
-                    },
-                    "lines": {
-                        "enabled": true
-                    },
-                    "truncation": {
-                        "enabled": true
+                    "misc": {
+                        "gradient": {
+                            "enabled": true,
+                            "percentage": 100
+                        }
                     }
-                },
-                "effects": {
-                    "pullOutSegmentOnClick": {
-                        "speed": 400,
-                        "size": 8
-                    }
-                },
-                "misc": {
-                    "gradient": {
-                        "enabled": true,
-                        "percentage": 100
-                    }
-                }
-            });
-    </script>
-    </div>
+                });
+            </script>
+        </div>
+    <div class="row">
     {% for device in devices %}
         <div class="tab-pane" id="tab{{ device.id }}">
-        <div class="row">
+
         <div class="col-lg-5">
             <table class="table table-bordered table-condensed">
                 <thead>
@@ -136,13 +137,13 @@
         <div id='memberdiv' class="col-lg-5 col-lg-offset-5 fixed">
             <!-- place holder for table -->
         </div>
+        </div>
 
-        </div>
-        </div>
 
     {% endfor %}
+    </div>
 </div>
-</div>
+
 {% else %}
     <div>
     <p>there is nothing in the database</p>
@@ -150,3 +151,4 @@
 {% endif %}
 
 {% endblock %}
+</div>
