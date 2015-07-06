@@ -25,7 +25,10 @@ def main():
 
     for device in devices:
         print "Fetching Vips from: %s" % device
-        Vip.objects.vips_poll(device)
+        try:
+            Vip.objects.vips_poll(device)
+        except TIMEOUT:
+            print "TIMEOUT to device: %s" % device
         for vip in device.vips.all():
             print "Fetching members from Device: %s Vip: %s" % (device, vip)
             try:
