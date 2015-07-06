@@ -1,4 +1,5 @@
 # Create your views here.
+from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import get_object_or_404
 from django.views.generic import ListView, CreateView, DeleteView
 from vips.forms import DeviceForm
@@ -37,7 +38,7 @@ class CreateDevice(CreateView):
     model = Device
     form_class = DeviceForm
     template_name = 'vips/device_form.html'
-    success_url = "/"
+    success_url = reverse_lazy('vips:deviceadmin')
 
 
 class DeleteDevice(DeleteView):
