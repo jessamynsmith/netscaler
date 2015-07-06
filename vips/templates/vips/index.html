@@ -10,7 +10,7 @@
     <ul class="nav nav-tabs">
         <li class="active"><a href="#tab1" data-toggle="tab">Summary</a></li>
         {% for device in devices %}
-            <li id="device{{ device.id }}"><a href="#tab{{ device.id }}" data-toggle="tab">{{ device.label }}</a></li>
+            <li id="tab{{ device.id }}"><a href="#tab{{ device.id }}" data-toggle="tab">{{ device.label }}</a></li>
         {% endfor %}
     </ul>
     <div class="tab-content">
