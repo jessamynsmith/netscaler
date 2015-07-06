@@ -2,7 +2,7 @@
 {% load staticfiles %}
 {% block content %}
 <script>
-//$(document).ready(function(){
+$(document).ready(function(){
     var temp = $('.modal').on('show.bs.modal', function(){
             console.log('modal is shown');
             console.log(this.id);
@@ -22,8 +22,7 @@
     $(".modal").on('hide.bs.modal', function(){
         console.log('Modal was hidden from the user');
     });
-//});
-
+});
 </script>
         <div id='content' class="col-lg-12 main">
             {%  include 'vips/device_list.html'%}
