@@ -28,3 +28,9 @@ function fillmodal(select, url, mymodal){
     });
     $(mymodal).modal('show')
 }
+
+function getPajax(url, updateTable){
+    $.get(url, function(data){
+        $(updateTable).html(data);
+    });
+}
