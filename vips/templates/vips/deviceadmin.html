@@ -11,9 +11,10 @@ $(document).ready(function(){
         });
 
     // Submit post on submit
-    $('#post-form').submit(function(event) {
-        console.log('Clicked on Submit');
+    $('#post-form').on('click', function(event) {
         event.preventDefault();
+        console.log('Clicked on Submit');
+
         create_post($(this), temp, $('#content'));
     });
 
