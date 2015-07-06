@@ -18,6 +18,9 @@ class Device(models.Model):
     label = models.CharField(max_length=64)
     login = models.ForeignKey(Login)
 
+    class Meta:
+        ordering = ('label',)
+
     def __unicode__(self):
         return '%s' % self.label
 
