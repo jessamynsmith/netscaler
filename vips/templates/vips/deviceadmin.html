@@ -3,15 +3,18 @@
 {% block content %}
 <script>
 $(document).ready(function(){
-    // Submit post on submit
-    $('#post-form').on('submit', function(event) {
-        console.log('Clicked on Submit');
-        var temp = $('.modal').on('show.bs.modal', function(){
+
+    var temp = $('.modal').on('show.bs.modal', function(){
             console.log('modal is shown');
             console.log(this.id);
             //for some reason this return an array???
             return $(this)[0]
         });
+
+    // Submit post on submit
+    $('#post-form').on('submit', function(event) {
+        console.log('Clicked on Submit');
+
         event.preventDefault();
         create_post($(this), temp, $('#content'));
     });
