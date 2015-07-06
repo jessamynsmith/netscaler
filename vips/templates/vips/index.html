@@ -14,7 +14,7 @@
       <li id="device{{ device.id }}"><a href="#tab{{ device.id }}" data-toggle="tab">{{ device.label }}</a></li>
       {% endfor %}
   </ul>
-    <div class="tab-content">
+    < class="tab-content">
         <div class="tab-pane active" id="tab1">
             <div id='pieChart'></div>
             <script>
@@ -95,7 +95,6 @@
                 });
             </script>
         </div>
-    </div>
     <div class="row">
     {% for device in devices %}
         <div class="tab-pane" id="tab{{ device.id }}">
@@ -140,12 +139,9 @@
             <!-- place holder for table -->
         </div>
         </div>
-
-
     {% endfor %}
     </div>
 </div>
-
 {% else %}
     <div>
     <p>there is nothing in the database</p>
