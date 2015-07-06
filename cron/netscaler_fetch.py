@@ -13,6 +13,7 @@ from django.core.wsgi import get_wsgi_application
 application = get_wsgi_application()
 
 from vips.models import Device, Vip, Member
+from pexpect import TIMEOUT
 
 def main():
     """
@@ -27,7 +28,10 @@ def main():
         Vip.objects.vips_poll(device)
         for vip in device.vips.all():
             print "Fetching members from Device: %s Vip: %s" % (device, vip)
-            Member.objects.members_poll(vip, debug=True)
+            try:
+                Member.objects.members_poll(vip, debug=True)
+            except TIMEOUT:
+                print "TIMEOUT to device: %s" % device
 
 if __name__ == "__main__":
     main()
