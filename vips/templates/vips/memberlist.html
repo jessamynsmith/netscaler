@@ -1,5 +1,23 @@
-this is a place holder, put stuff here
 
-{% for member in members %}
-{{ member }}
-{% endfor %}
+<table class="tabl table-bordered">
+    <thead>
+        <tr>
+            <th>Member</th>
+            <th>Address</th>
+            <th>Protocol</th>
+            <th>Port</th>
+            <th>State</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for member in members %}
+            <tr>
+                <td>{{ member.label }}</td>
+                <td>{{ member.address }}</td>
+                <td>{{ member.protocol }}</td>
+                <td>{{ member.port }}</td>
+                <td>{{ member.state }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
