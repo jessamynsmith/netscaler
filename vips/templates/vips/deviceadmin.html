@@ -4,7 +4,7 @@
 <script>
 $(document).ready(function(){
     // Submit post on submit
-    $('.form-inline').on('submit', function(event) {
+    $('#post-form').on('submit', function(event) {
         var temp = $('.modal').on('show.bs.modal', function(){
             console.log('modal is shown');
             console.log(this.id);
