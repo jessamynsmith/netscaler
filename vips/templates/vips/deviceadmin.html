@@ -11,7 +11,7 @@ $(document).ready(function(){
         });
 
     // Submit post on submit
-    $('#post-form').on('submit', function(event) {
+    $('#post-form').live('submit', function(event) {
         console.log(event);
         event.preventDefault();
         console.log('Clicked on Submit');
