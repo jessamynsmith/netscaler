@@ -1,6 +1,6 @@
 import os, sys
 
-proj_path = "/Users/jeffrey.dambly/PycharmProjects/netscaler"
+proj_path = "/home/CORP/jeffrey.dambly/netscaler"
 # This is so Django knows where to find stuff.
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "netscaler.settings")
 sys.path.append(proj_path)
