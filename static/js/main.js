@@ -30,6 +30,7 @@ function fillmodal(select, url, mymodal){
 }
 
 function getPajax(url, updateTable){
+    $(updateTable).empty();
     $.get(url, function(data){
         $(updateTable).html(data);
     });

@@ -1,5 +1,8 @@
-<table class="tabl table-bordered">
+<table class="tabl table-bordered table-condensed">
     <thead>
+        <tr>
+            <th colspan="5">{{ members.first.vip.label }}</th>
+        </tr>
         <tr>
             <th>Member</th>
             <th>Address</th>
@@ -16,7 +19,13 @@
                 <td>{{ member.address }}</td>
                 <td>{{ member.protocol }}</td>
                 <td>{{ member.port }}</td>
-                <td>{{ member.state }}</td>
+                {% if member.state == 'DOWN' %}
+                    <td><span class='label label-danger'>{{ member.state }}</span></td>
+                {% elif member.state == 'UP' %}
+                    <td><span class='label label-success'>{{ member.state }}</span></td>
+                {% else %}
+                    <td><span class='label label-default'>{{ member.state }}</span></td>
+                {% endif %}
             </tr>
         {% endfor %}
         {% else %}

@@ -115,7 +115,7 @@
                 <tbody>
                 {% for vip in device.vips.all %}
                     <tr>
-                    <td><a href="#" onclick="getPajax('{% url "vips:members" vip.id %}', '#memberdiv');"> {{ vip.label }}</a></td>
+                    <td><a style="cursor: pointer;" onclick="getPajax('{% url "vips:members" vip.id %}', '#memberdiv');"> {{ vip.label }}</a></td>
                     <td>{{ vip.address }}</td>
                     <td>{{ vip.port }}</td>
                         {% if vip.state == "UP" %}
@@ -133,7 +133,7 @@
                 </tbody>
             </table>
         </div>
-        <div id='memberdiv' class="col-lg-2 col-lg-offset-5 fixed">
+        <div id='memberdiv' class="col-lg-5 col-lg-offset-5 fixed">
             <!-- place holder for table -->
         </div>
 
