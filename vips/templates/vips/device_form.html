@@ -1,6 +1,6 @@
 {% load staticfiles %}
 
-<form class="form-inline" id="post-form" action="{% url 'vips:createdevice'%}" method="post">
+<form class="form form-inline" id="post-form" action="{% url 'vips:createdevice'%}" method="post">
 <legend>Create Device</legend>
     {% csrf_token %}
     {%  for field in deviceform %}
