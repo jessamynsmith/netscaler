@@ -45,11 +45,11 @@ class Netscaler(object):
         session = spawn('ssh %s@%s' % (self.username, self.host))
         session.delaybeforesend = 1
         session.timeout = 4
-        retval = session.expect([SSH_NEWKEY, 'password:'])
+        retval = session.expect([SSH_NEWKEY, '[pP]assword:'])
 
         if retval == 0:
             session.sendline('yes')
-            session.expect('password:')
+            session.expect('[pP]assword:')
 
         session.sendline(self.password)
 
