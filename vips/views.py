@@ -44,7 +44,7 @@ class CreateDevice(CreateView):
 class DeleteDevice(DeleteView):
     model = Device
     template_name = 'vips/deleteform.html'
-    success_url = "/"
+    success_url = reverse_lazy('vips:deviceadmin')
 
 
 class MemberView(ListView):
