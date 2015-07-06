@@ -2,7 +2,7 @@
 {% load staticfiles %}
 {% block content %}
 <script>
-//$(document).ready(function(){
+$(document).ready(function(){
     // Submit post on submit
     $('.form-inline').on('submit', function(event) {
         var temp = $('.modal').on('show.bs.modal', function(){
@@ -18,11 +18,10 @@
     $(".modal").on('hide.bs.modal', function(){
         console.log('Modal was hidden from the user');
     });
-
-//});
+});
 
 </script>
-        <div class="col-lg-12 main">
+        <div id='content' class="col-lg-12 main">
             {%  include 'vips/device_list.html'%}
         </div>
 {% endblock %}
