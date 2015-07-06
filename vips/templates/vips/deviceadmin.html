@@ -3,7 +3,6 @@
 {% block content %}
 <script>
 $(document).ready(function(){
-
     var temp = $('.modal').on('show.bs.modal', function(){
             console.log('modal is shown');
             console.log(this.id);
@@ -12,9 +11,8 @@ $(document).ready(function(){
         });
 
     // Submit post on submit
-    $('#post-form').on('submit', function(event) {
+    $('#post-form').submit(function(event) {
         console.log('Clicked on Submit');
-
         event.preventDefault();
         create_post($(this), temp, $('#content'));
     });
