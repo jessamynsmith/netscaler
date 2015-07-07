@@ -97,7 +97,7 @@
             var pie2 = new d3pie("deviceChart", {
                     "header": {
                         "title": {
-                            "text": "Vips",
+                            "text": "Vips per Device",
                             "fontSize": 24,
                             "font": "open sans"
                         },
@@ -123,7 +123,7 @@
                         "content": [
                             {% for item in devicegraph %}
                             {
-                                "label": "{{ item.state }}",
+                                "label": "{{ item.device__label }}",
                                 "value": {{ item.value }},
                                 "color": "{{ item.color }}"
                             },
