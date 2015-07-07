@@ -56,7 +56,6 @@ class Netscaler(object):
         session.expect(self.prompt)
         # set the cli mode to not page
         session.sendline('set cli mode -page OFF')
-        sleep(60)
         session.expect(self.prompt)
         self.session = session
         return True
