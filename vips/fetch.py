@@ -1,4 +1,5 @@
 import re
+from time import sleep
 from pexpect import spawn, TIMEOUT
 
 SSH_NEWKEY = 'Are you sure you want to continue connecting'
@@ -56,6 +57,7 @@ class Netscaler(object):
         session.expect(self.prompt)
         # set the cli mode to not page
         session.send('set cli mode -page OFF')
+        sleep(60)
         session.expect(self.prompt)
         self.session = session
         return True
