@@ -96,7 +96,10 @@ class VipManager(models.Manager):
 
         i = 1
         for each in result:
-            each.update({'color': colors[i]})
+            try:
+                each.update({'color': colors[i]})
+            except IndexError:
+                i = 1
             i += 1
             if i > len(colors):
                 i = 1
@@ -122,7 +125,10 @@ class VipManager(models.Manager):
         #todo there must be a better way to do this....
         i = 1
         for each in result:
-            each.update({'color': colors[i]})
+            try:
+                each.update({'color': colors[i]})
+            except IndexError:
+                i = 1
             i += 1
             if i > len(colors):
                 i = 1
