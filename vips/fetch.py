@@ -105,17 +105,18 @@ class Netscaler(object):
         result = {}
 
         for id, vip in enumerate(data):
-            matchObj = re.match(r'^\t(\S+)\s\((\d+.\d+.\d+.\d+):(\d+)\)\s-\s\w+\t\w+:\s\w+\s\r\n\tState:\s(\w+)\r\n\t(Effective\sState:\s(\w+)|\w+\s\w+\s\w+\s\w+\s\w+\s\w+\s\w+\s\d+\s[0-9:]+\s\d+\r\n\t[\w\s\d:,]+.\d+\r\n\tEffective\sState:\s(\w+))', vip)
-
-            if matchObj:
+            matchObj1 = re.search(r'^\t(\S+)\s\((\d+.\d+.\d+.\d+):(\d+)\)\s-\s\w+\t\w+:\s\w+\s\r\n\tState:\s(\w+)', vip)
+            matchObj2 = re.search(r'\tEffective\sState:\s(\w+)', vip)
+            if matchObj1 and matchObj2:
                 if debug == True:
-                    print 'MATCH: %s' % matchObj.group()
+                    print 'MATCH: %s' % matchObj1.group()
                 temp = {}
-                for indx, val in enumerate(keys):
+                for indx, val in enumerate(keys[:4]):
                     # have to add +1 because re groups start at 1 0 would be the whole match
                     #print val, matchObj.group(indx+1)
-                    temp.update({val: matchObj.group(indx+1)})
+                    temp.update({val: matchObj1.group(indx+1)})
 
+                temp.update({keys[4]: matchObj2.group(1)})
                 result[id] = temp
             elif debug == True:
                 print 'Nothing was matched'
