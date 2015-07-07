@@ -1,3 +1,5 @@
+from django.contrib.auth.decorators import login_required
+
 __author__ = 'jeffrey.dambly'
 
 from django.conf.urls import patterns, url
@@ -26,7 +28,7 @@ urlpatterns = patterns('',
                        ),
                        url(
                            regex=r'device/admin/$',
-                           view=views.AdminView.as_view(),
+                           view=login_required(views.AdminView.as_view()),
                            name='deviceadmin'
                        ),
                        url(
