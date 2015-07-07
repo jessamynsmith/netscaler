@@ -199,11 +199,15 @@
                                     <td>{{ vip.port }}</td>
                                     {% if vip.state == "UP" %}
                                         <td><span class='label label-success'>{{ vip.state }}</span></td>
+                                     {% elif vip.state == "DOWN" %}
+                                        <td><span class='label label-danger'>{{ vip.state }}</span></td>
                                     {% else %}
                                         <td><span class="label label-default">{{ vip.state }}</span></td>
                                     {% endif %}
                                     {% if vip.effective_state == "UP"%}
                                         <td><span class="label label-success">{{ vip.effective_state }}</span></td>
+                                    {% elif vip.effective_state == "DOWN" %}
+                                        <td><span class="label label-danger">{{ vip.effective_state }}</span></td>
                                     {% else %}
                                         <td><span class="label label-default">{{ vip.effective_state }}</span></td>
                                     {% endif %}
