@@ -90,7 +90,7 @@ class Netscaler(object):
 
         return result
 
-    def get_vips(self):
+    def get_vips(self, debug=False):
         """
         returns the output from 'show lb vserver' as a dict
         :return:
@@ -98,12 +98,18 @@ class Netscaler(object):
         keys = ['label', 'address', 'port', 'state', 'effective state']
         data = self._send('show lb vserver')
         data = re.split(r'\r\n\d+\)', data)[1:]
+
+        if debug == True:
+            print "data after split: %s" % data
+
         result = {}
 
         for id, vip in enumerate(data):
             matchObj = re.match(r'^\t(\S+)\s\((\d+.\d+.\d+.\d+):(\d+)\)\s-\s\w+\t\w+:\s\w+\s\r\n\tState:\s(\w+)\r\n\tEffective\sState:\s(\w+)', vip)
 
             if matchObj:
+                if debug == True:
+                    print 'MATCH: %s' % matchObj.group()
                 temp = {}
                 for indx, val in enumerate(keys):
                     # have to add +1 because re groups start at 1 0 would be the whole match
@@ -111,6 +117,8 @@ class Netscaler(object):
                     temp.update({val: matchObj.group(indx+1)})
 
                 result[id] = temp
+            elif debug == True:
+                print 'Nothing was matched'
 
         return result
 
