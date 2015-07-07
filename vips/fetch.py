@@ -105,7 +105,7 @@ class Netscaler(object):
         result = {}
 
         for id, vip in enumerate(data):
-            matchObj = re.match(r'^\t(\S+)\s\((\d+.\d+.\d+.\d+):(\d+)\)\s-\s\w+\t\w+:\s\w+\s\r\n\tState:\s(\w+)\r\n\tEffective\sState:\s(\w+)', vip)
+            matchObj = re.match(r'^\t(\S+)\s\((\d+.\d+.\d+.\d+):(\d+)\)\s-\s\w+\t\w+:\s\w+\s\r\n\tState:\s(\w+)\r\n\t(Effective\sState:\s(\w+)|\w+\s\w+\s\w+\s\w+\s\w+\s\w+\s\w+\s\d+\s[0-9:]+\s\d+\r\n\t[\w\s\d:,]+.\d+\r\n\tEffective\sState:\s(\w+))', vip)
 
             if matchObj:
                 if debug == True:
