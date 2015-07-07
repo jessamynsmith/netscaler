@@ -14,6 +14,7 @@ class IndexView(ListView):
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)
         context['stategraph'] = Vip.objects.graph()
+        context['devicegraph'] =  Vip.objects.vips_per_device_graph()
         return context
 
 

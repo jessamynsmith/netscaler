@@ -103,6 +103,32 @@ class VipManager(models.Manager):
 
         return result
 
+    def vips_per_device_graph(self):
+        colors =["#f30000",
+                 "#0600f3",
+                 "#00b109",
+                 "#14e4b4",
+                 "#0fe7fb",
+                 "#67f200",
+                 "#ff7e00",
+                 "#8fe4fa",
+                 "#ff5300",
+                 "#640000",
+                 "#3854d1",
+         ]
+
+        result = Vip.objects.values('device__label').annotate(value=Count('label'))
+
+        #todo there must be a better way to do this....
+        i = 1
+        for each in result:
+            each.update({'color': colors[i]})
+            i += 1
+            if i > len(colors):
+                i = 1
+
+        return result
+
 class Vip(models.Model):
     label = models.CharField(max_length=32)
     address = models.GenericIPAddressField()
