@@ -33,6 +33,7 @@ def updateAll():
             Vip.objects.vips_poll(device)
         except TIMEOUT:
             print "TIMEOUT to device: %s" % device
+
         for vip in device.vips.all():
             print "Fetching members from Device: %s Vip: %s" % (device, vip)
             try:
@@ -55,6 +56,7 @@ def updateDevice(name='', debug=False):
         print 'Timeout connecting to this device'
         if debug == True:
             traceback.print_exc()
+
         return False
 
     for vip in device.vips.all():
@@ -64,7 +66,6 @@ def updateDevice(name='', debug=False):
         except TIMEOUT:
             if debug == True:
                 traceback.print_exc()
-
             print "TIMEOUT to device: %s" % device
 
 def main():
@@ -76,6 +77,7 @@ def main():
     args = parser.parse_args()
 
     if args.name:
+        print args.debug
         updateDevice(name=args.name, debug=args.debug)
     else:
         updateAll()
