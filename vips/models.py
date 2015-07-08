@@ -62,7 +62,7 @@ class Server(models.Model):
 
 class VipManager(models.Manager):
 
-    def vips_poll(self, device=Device):
+    def vips_poll(self, device=Device, debug=False):
         """
         connects to the netscaler gets all the vip data and enters it into the db
         :return:
@@ -71,7 +71,7 @@ class VipManager(models.Manager):
                            username=device.login.user,
                            password=device.login.password)
 
-        for key, val in remote.get_vips().iteritems():
+        for key, val in remote.get_vips(debug=debug).iteritems():
             Vip.objects.update_or_create(label=val['label'],
                                          address=val['address'],
                                          port=val['port'],

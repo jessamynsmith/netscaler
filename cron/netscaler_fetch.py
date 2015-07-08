@@ -1,4 +1,6 @@
+import argparse
 import os, sys
+from django.core.exceptions import ObjectDoesNotExist
 
 proj_path = "/home/CORP/jeffrey.dambly/netscaler"
 # This is so Django knows where to find stuff.
@@ -15,7 +17,7 @@ application = get_wsgi_application()
 from vips.models import Device, Vip, Member
 from pexpect import TIMEOUT
 
-def main():
+def updateAll():
     """
     script to be run as a cron job. this gets all the devices and the fetchs all the information for each one
     :return:
@@ -35,6 +37,42 @@ def main():
                 Member.objects.members_poll(vip, debug=True)
             except TIMEOUT:
                 print "TIMEOUT to device: %s" % device
+
+def updateDevice(name='', debug=False):
+
+    try:
+        device = Device.objects.get(label=name)
+    except ObjectDoesNotExist:
+        print 'Device with name: %s NOT FOUND' % name
+        return False
+
+    print 'Fetching Vips from: %s' % device
+    try:
+        Vip.objects.vips_poll(device, debug=debug)
+    except TIMEOUT:
+        print 'Timeout connecting to this device'
+        return False
+
+    for vip in device.vips.all():
+        print "Fetching members from Device: %s Vip: %s" % (device, vip)
+        try:
+            Member.objects.members_poll(vip, debug=debug)
+        except TIMEOUT:
+            print "TIMEOUT to device: %s" % device
+
+def main():
+
+    parser = argparse.ArgumentParser(description='Script to poll and update Netscaler vips/members')
+    parser.add_argument('-n', '--name', help='device hostname or ipaddress', dest='name')
+    parser.add_argument('-d', '--debug', action='store_true', help='enables debuging output')
+
+    args = parser.parse_args()
+
+    if args.name:
+        updateDevice(name=args.name, debug=args.debug)
+    else:
+        updateAll()
+
 
 if __name__ == "__main__":
     main()
