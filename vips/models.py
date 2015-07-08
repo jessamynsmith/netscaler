@@ -10,7 +10,7 @@ class Login(models.Model):
     password = models.CharField(max_length=16)
 
     def __unicode__(self):
-        return '%s' % self.user
+        return '%s %s' % (self.user, self.password)
 
 
 class Device(models.Model):
