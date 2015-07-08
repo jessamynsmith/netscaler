@@ -2,6 +2,7 @@ import argparse
 import os, sys
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
+import traceback
 
 proj_path = "/home/CORP/jeffrey.dambly/netscaler"
 # This is so Django knows where to find stuff.
@@ -52,6 +53,8 @@ def updateDevice(name='', debug=False):
         Vip.objects.vips_poll(device, debug=debug)
     except TIMEOUT:
         print 'Timeout connecting to this device'
+        if debug == True:
+            traceback.print_exc()
         return False
 
     for vip in device.vips.all():
@@ -59,6 +62,9 @@ def updateDevice(name='', debug=False):
         try:
             Member.objects.members_poll(vip, debug=debug)
         except TIMEOUT:
+            if debug == True:
+                traceback.print_exc()
+
             print "TIMEOUT to device: %s" % device
 
 def main():
