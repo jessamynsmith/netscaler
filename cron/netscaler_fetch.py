@@ -1,6 +1,7 @@
 import argparse
 import os, sys
 from django.core.exceptions import ObjectDoesNotExist
+from django.db.models import Q
 
 proj_path = "/home/CORP/jeffrey.dambly/netscaler"
 # This is so Django knows where to find stuff.
@@ -41,7 +42,7 @@ def updateAll():
 def updateDevice(name='', debug=False):
 
     try:
-        device = Device.objects.get(label=name)
+        device = Device.objects.get(Q(label=name) | Q(ip=name))
     except ObjectDoesNotExist:
         print 'Device with name: %s NOT FOUND' % name
         return False
