@@ -25,7 +25,7 @@ class IndexView(ListView):
         return context
 
 
-class AdminView(LoginRequiredMixin, ListView):
+class AdminView(ListView):
     template_name = 'vips/deviceadmin.html'
     model = Device
     context_object_name = 'devices'
