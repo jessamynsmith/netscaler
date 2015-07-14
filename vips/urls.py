@@ -28,7 +28,7 @@ urlpatterns = patterns('',
                        ),
                        url(
                            regex=r'device/admin/$',
-                           view=login_required(views.AdminView.as_view()),
+                           view=views.AdminView.as_view(),
                            name='deviceadmin'
                        ),
                        url(

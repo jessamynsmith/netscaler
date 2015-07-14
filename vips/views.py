@@ -1,5 +1,6 @@
 # Create your views here.
 from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import get_object_or_404
 from django.views.generic import ListView, CreateView, DeleteView
@@ -34,6 +35,10 @@ class AdminView(ListView):
         context = super(AdminView, self).get_context_data(**kwargs)
         context['deviceform'] = DeviceForm()
         return context
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(AdminView, self).dispatch(*args, **kwargs)
 
 
 class DeviceList(ListView):
