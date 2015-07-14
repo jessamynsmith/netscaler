@@ -107,4 +107,4 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.contrib.messages.context_processors.messages"
 )
 
-LOGIN_URL = '%s' % reverse_lazy('account:login')
+LOGIN_URL = '/account/login/'
